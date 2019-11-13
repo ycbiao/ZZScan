@@ -41,6 +41,7 @@ public class ZXingView extends QRCodeView {
         Map map = QRCodeDecoder.syncDecodeQRCode(bmpYUVBytes,bitmapWidth,bitmapHeight,0,0,bitmapWidth,bitmapHeight,false);
 
         if(map == null){
+            //zxing失败使用zbar识别
             map = ZBarDecode.syncDecodeQRCode(bitmap);
         }
         bitmap.recycle();
@@ -68,21 +69,14 @@ public class ZXingView extends QRCodeView {
 
             String text = result.get("text").toString();
             String BarcodeFormat = result.get("BarcodeFormat").toString();
-            ArrayList<PointF> points = (ArrayList<PointF>) result.get("resultPoints");
+            PointF[] points = (PointF[]) result.get("resultPoints");
             scanResult = new ScanResult(text , BarcodeFormat);
             QRCodeUtil.d("格式为：" + BarcodeFormat);
 
             // 处理自动缩放和定位点
             boolean isNeedAutoZoom = isNeedAutoZoom(BarcodeFormat);
             if (isShowLocationPoint() || isNeedAutoZoom) {
-                final PointF[] pointArr = new PointF[points.size()];
-                int pointIndex = 0;
-                for (PointF resultPoint : points) {
-                    pointArr[pointIndex] = new PointF(resultPoint.x, resultPoint.y);
-                    pointIndex++;
-                }
-
-                if (transformToViewCoordinates(pointArr, scanBoxAreaRect, isNeedAutoZoom,scanResult)) {
+                if (transformToViewCoordinates(points, scanBoxAreaRect, isNeedAutoZoom,scanResult)) {
                     return null;
                 }
             }

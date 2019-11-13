@@ -25,6 +25,7 @@ import java.util.Map;
 
 
 /**
+ *
  */
 public class QRCodeDecoder {
     static final Map<DecodeHintType, Object> ALL_HINT_MAP = new EnumMap<>(DecodeHintType.class);
@@ -141,7 +142,7 @@ public class QRCodeDecoder {
     }
 
     /**
-     * 同步解析bitmap二维码。该方法是耗时操作，请在子线程中调用。
+     * 同步解析bitmap二维码
      * @return 返回二维码图片里的内容 或 null
      */
     public static Map<String,Object> syncDecodeQRCode(byte[] bmpYUVBytes, int bmpWidth, int bmpHeight, int left, int top, int width, int height, boolean reverseHorizontal) {
@@ -162,14 +163,13 @@ public class QRCodeDecoder {
                     Map<String,Object> map = new HashMap<>();
                     map.put("text",result.getText());
                     map.put("BarcodeFormat",result.getBarcodeFormat().name());
-                    ArrayList<PointF> pointFS = new ArrayList<>();
-                    for (ResultPoint resultPoint : result.getResultPoints()){
-                        PointF pointF = new PointF();
-                        pointF.x = resultPoint.getX();
-                        pointF.y = resultPoint.getY();
-                        pointFS.add(pointF);
+                    PointF[] pointArr = new PointF[result.getResultPoints().length];
+                    int pointIndex = 0;
+                    for(ResultPoint resultPoint : result.getResultPoints()){
+                        pointArr[pointIndex] = new PointF(resultPoint.getX(), resultPoint.getY());
+                        pointIndex++;
                     }
-                    map.put("resultPoints",pointFS);
+                    map.put("resultPoints",pointArr);
                     return map;
                 }else {
                     return null;

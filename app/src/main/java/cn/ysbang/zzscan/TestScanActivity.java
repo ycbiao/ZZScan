@@ -136,6 +136,13 @@ public class TestScanActivity extends AppCompatActivity implements QRCodeView.De
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(200);
         onScanQRCodeResult(result);
+
+        mZXView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mZXView.startSpotAndShowRect();
+            }
+        },1000);
     }
     @Override
     public void onCameraAmbientBrightnessChanged(boolean isDark) {
