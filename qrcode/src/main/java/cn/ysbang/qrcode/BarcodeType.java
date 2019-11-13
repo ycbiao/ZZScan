@@ -1,4 +1,4 @@
-package cn.ysbang.zxing;
+package cn.ysbang.qrcode;
 
 /**
  * 作者:王浩

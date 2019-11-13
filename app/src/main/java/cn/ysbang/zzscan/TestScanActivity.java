@@ -1,7 +1,6 @@
 package cn.ysbang.zzscan;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -9,15 +8,16 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.List;
 
-import cn.ysbang.zxing.QRCodeView;
-import cn.ysbang.zxing.ScanResult;
-import cn.ysbang.zxing.ZXingView;
+import cn.ysbang.qrcode.QRCodeView;
+import cn.ysbang.qrcode.ScanResult;
+import cn.ysbang.qrcode.ZXingView;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -25,9 +25,9 @@ import pub.devrel.easypermissions.EasyPermissions;
  * @author biao
  * 扫码基类页面
  */
-public class ScanActivity extends BaseActivity implements QRCodeView.Delegate, EasyPermissions.PermissionCallbacks {
+public class TestScanActivity extends AppCompatActivity implements QRCodeView.Delegate, EasyPermissions.PermissionCallbacks {
 
-    public static final String TAG = ScanActivity.class.getSimpleName();
+    public static final String TAG = TestScanActivity.class.getSimpleName();
 
     public static final int SELECT_IMAGE_REQUEST_CODE = 0x0101;
 
@@ -116,7 +116,7 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate, E
                     mZXView.post(new Runnable() {
                         @Override
                         public void run() {
-                            mZXView.decodeQRCode(PathUtils.getFilePathByUri(ScanActivity.this,data.getData()));
+                            mZXView.decodeQRCode(PathUtils.getFilePathByUri(TestScanActivity.this,data.getData()));
                         }
                     });
                     break;
@@ -124,13 +124,17 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate, E
         }
     }
 
-    public void  onScanQRCodeResult(ScanResult result){};
+    public void  onScanQRCodeResult(ScanResult result){
+        if(result != null){
+            Toast.makeText(this,result.result,Toast.LENGTH_SHORT).show();
+            Log.e(getClass().getSimpleName(),result.result);
+        }
+    };
 
     @Override
     public void onScanQRCodeSuccess(ScanResult result) {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(200);
-        mZXView.stopSpotAndHiddenRect();
         onScanQRCodeResult(result);
     }
     @Override
@@ -169,9 +173,11 @@ public class ScanActivity extends BaseActivity implements QRCodeView.Delegate, E
     }
 
     private void requestCodeQRCodePermissions() {
-        String[] perms = {Manifest.permission.CAMERA};
+        String[] perms = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (!EasyPermissions.hasPermissions(this, perms)) {
             EasyPermissions.requestPermissions(this, "读取图片需要打开外置存储空间读写权限", 1, perms);
+        }else {
+            openSysAlbum();
         }
     }
 }

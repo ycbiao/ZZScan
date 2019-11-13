@@ -1,4 +1,4 @@
-package cn.ysbang.zxing;
+package cn.ysbang.qrcode;
 
 import android.graphics.Bitmap;
 

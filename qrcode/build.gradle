@@ -1,0 +1,20 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion ANDROID_SUPPORT_VERSION as String
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+    }
+}
+
+dependencies {
+//    if(hasProperty("publishAar")) {
+//        compile "cn.bingoogolapple:bga-qrcode-core:${VERSION_NAME}"
+//    } else {
+//        api project(':zxing')
+//    }
+    api project(':zxing')
+    api project(':zbar')
+}

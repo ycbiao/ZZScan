@@ -7,7 +7,7 @@
     android:background="@color/_ffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <cn.ysbang.zxing.ZXingView
+    <cn.ysbang.qrcode.ZXingView
         android:id="@+id/scan_bga_zxing"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

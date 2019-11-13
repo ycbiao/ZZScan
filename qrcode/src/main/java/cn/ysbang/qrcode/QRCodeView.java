@@ -1,4 +1,4 @@
-package cn.ysbang.zxing;
+package cn.ysbang.qrcode;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -297,8 +297,8 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
 
     @Override
     public void onPreviewFrame(final byte[] data, final Camera camera) {
-        if (BGAQRCodeUtil.isDebug()) {
-            BGAQRCodeUtil.d("两次 onPreviewFrame 时间间隔：" + (System.currentTimeMillis() - mLastPreviewFrameTime));
+        if (QRCodeUtil.isDebug()) {
+            QRCodeUtil.d("两次 onPreviewFrame 时间间隔：" + (System.currentTimeMillis() - mLastPreviewFrameTime));
             mLastPreviewFrameTime = System.currentTimeMillis();
         }
 
@@ -315,7 +315,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
             return;
         }
 
-        mProcessDataTask = new ProcessDataTask(camera, data, this, BGAQRCodeUtil.isPortrait(getContext())).perform();
+        mProcessDataTask = new ProcessDataTask(camera, data, this, QRCodeUtil.isPortrait(getContext())).perform();
     }
 
     private void handleAmbientBrightness(byte[] data, Camera camera) {
@@ -358,7 +358,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
                     break;
                 }
             }
-            BGAQRCodeUtil.d("摄像头环境亮度为：" + cameraLight);
+            QRCodeUtil.d("摄像头环境亮度为：" + cameraLight);
             if (mDelegate != null) {
                 mDelegate.onCameraAmbientBrightnessChanged(isDarkEnv);
             }
@@ -462,7 +462,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
             // 不管横屏还是竖屏，size.width 大于 size.height
             Camera.Size size = mCamera.getParameters().getPreviewSize();
             boolean isMirrorPreview = mCameraId == Camera.CameraInfo.CAMERA_FACING_FRONT;
-            int statusBarHeight = BGAQRCodeUtil.getStatusBarHeight(getContext());
+            int statusBarHeight = QRCodeUtil.getStatusBarHeight(getContext());
 
             PointF[] transformedPoints = new PointF[pointArr.length];
             int index = 0;
@@ -570,7 +570,7 @@ public abstract class QRCodeView extends RelativeLayout implements Camera.Previe
         float scaleX;
         float scaleY;
 
-        if (BGAQRCodeUtil.isPortrait(getContext())) {
+        if (QRCodeUtil.isPortrait(getContext())) {
             scaleX = viewWidth / cameraPreviewHeight;
             scaleY = viewHeight / cameraPreviewWidth;
             result = new PointF((cameraPreviewHeight - originX) * scaleX, (cameraPreviewWidth - originY) * scaleY);

@@ -1,4 +1,4 @@
-package cn.ysbang.zxing;
+package cn.ysbang.qrcode;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -18,11 +18,11 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
-public class BGAQRCodeUtil {
-    private static boolean debug;
+public class QRCodeUtil {
+    private static boolean debug = true;
 
     public static void setDebug(boolean debug) {
-        BGAQRCodeUtil.debug = debug;
+        QRCodeUtil.debug = debug;
     }
 
     public static boolean isDebug() {
@@ -157,10 +157,10 @@ public class BGAQRCodeUtil {
         int centerX = (int) (originFocusCenterX / previewViewWidth * 2000 - 1000);
         int centerY = (int) (originFocusCenterY / previewViewHeight * 2000 - 1000);
 
-        RectF rectF = new RectF(BGAQRCodeUtil.clamp(centerX - halfFocusAreaWidth, -1000, 1000),
-                BGAQRCodeUtil.clamp(centerY - halfFocusAreaHeight, -1000, 1000),
-                BGAQRCodeUtil.clamp(centerX + halfFocusAreaWidth, -1000, 1000),
-                BGAQRCodeUtil.clamp(centerY + halfFocusAreaHeight, -1000, 1000));
+        RectF rectF = new RectF(QRCodeUtil.clamp(centerX - halfFocusAreaWidth, -1000, 1000),
+                QRCodeUtil.clamp(centerY - halfFocusAreaHeight, -1000, 1000),
+                QRCodeUtil.clamp(centerX + halfFocusAreaWidth, -1000, 1000),
+                QRCodeUtil.clamp(centerY + halfFocusAreaHeight, -1000, 1000));
         return new Rect(Math.round(rectF.left), Math.round(rectF.top),
                 Math.round(rectF.right), Math.round(rectF.bottom));
     }
