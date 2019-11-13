@@ -23,7 +23,6 @@ public class Bmp2YUV {
                     + ((inputWidth % 2 == 0 ? inputWidth : (inputWidth + 1)) * (inputHeight % 2 == 0 ? inputHeight
                     : (inputHeight + 1))) / 2];
             encodeYUV420SP(yuv, argb, inputWidth, inputHeight);
-            sourceBmp.recycle();
             return yuv;
         }
         return null;

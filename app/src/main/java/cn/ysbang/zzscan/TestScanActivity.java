@@ -127,7 +127,7 @@ public class TestScanActivity extends AppCompatActivity implements QRCodeView.De
     public void  onScanQRCodeResult(ScanResult result){
         if(result != null){
             Toast.makeText(this,result.result,Toast.LENGTH_SHORT).show();
-            Log.e(getClass().getSimpleName(),result.result);
+            Log.e(getClass().getSimpleName(),result.result + "  " + result.barcodeType.name());
         }
     };
 

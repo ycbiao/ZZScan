@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import cn.bingoogolapple.qrcode.zbar.ZBarDecode;
 import cn.ysbang.zxing.QRCodeDecoder;
 
 public class ZXingView extends QRCodeView {
@@ -38,10 +39,14 @@ public class ZXingView extends QRCodeView {
         // 1.将bitmap的RGB数据转化成YUV420sp数据
         byte[] bmpYUVBytes = Bmp2YUV.getBitmapYUVBytes(bitmap);
         Map map = QRCodeDecoder.syncDecodeQRCode(bmpYUVBytes,bitmapWidth,bitmapHeight,0,0,bitmapWidth,bitmapHeight,false);
+
+        if(map == null){
+            map = ZBarDecode.syncDecodeQRCode(bitmap);
+        }
+        bitmap.recycle();
         if(map != null){
             return new ScanResult(map.get("text").toString(),map.get("BarcodeFormat").toString());
-        }
-        else {
+        }else {
             return null;
         }
     }
