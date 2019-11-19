@@ -11,12 +11,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
 }
 
 dependencies {
@@ -28,5 +22,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'pub.devrel:easypermissions:1.0.1'
     implementation project(path: ':qrcode')
-
+//    implementation 'com.ysb:zzscan:1.0.3'
 }

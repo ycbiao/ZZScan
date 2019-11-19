@@ -8,13 +8,11 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 import cn.bingoogolapple.qrcode.zbar.ZBarDecode;
 import cn.ysbang.zxing.QRCodeDecoder;
+
 
 public class ZXingView extends QRCodeView {
 
