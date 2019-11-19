@@ -1,12 +1,25 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'
+publish{
+    userOrg = 'binner16'  //bintray注册的用户名（不是邮箱）
+    groupId = 'com.ysb'
+    artifactId = 'zbar'  //项目名称
+    publishVersion = '1.0.4'  //版本号
+    desc = 'zbar'  //项目描述。可空。
+    website = 'https://github.com/ycbiao/ZZScan/tree/master/zbar'  //项目地址，一般填github地址。可空。
+}
 android {
-    compileSdkVersion COMPILE_SDK_VERSION as int
+    compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion MIN_SDK_VERSION as int
-        targetSdkVersion TARGET_SDK_VERSION as int
+        minSdkVersion 19
+        targetSdkVersion 29
         consumerProguardFiles 'consumer-proguard-rules.pro'
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters /*'armeabi' , 'x86', , 'x86_64'*/'armeabi-v7a', 'arm64-v8a'
+        }
     }
 
 
@@ -30,6 +43,8 @@ android {
         }
         delete(file('.externalNativeBuild'), file('src/main/libs'), file('src/main/obj'))
     }
+
+
 }
 
 dependencies {
@@ -41,12 +56,12 @@ dependencies {
 }
 
 // ./gradlew :zbar:clean :zbar:build :zbar:bintrayUpload -PpublishAar
-if (hasProperty("publishAar")) {
-    apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/jcenter-release.gradle'
-}
+//if (hasProperty("publishAar")) {
+//    apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/jcenter-release.gradle'
+//}
 
-tasks.whenTaskAdded {
-    if (it.name == 'releaseAndroidJavadocs') {
-        it.enabled = false
-    }
-}
+//tasks.whenTaskAdded {
+//    if (it.name == 'releaseAndroidJavadocs') {
+//        it.enabled = false
+//    }
+//}
