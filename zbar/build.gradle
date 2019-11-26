@@ -4,7 +4,7 @@ apply plugin: 'com.android.library'
 //    userOrg = 'binner16'  //bintray注册的用户名（不是邮箱）
 //    groupId = 'com.ysb'
 //    artifactId = 'zbar'  //项目名称
-//    publishVersion = '1.0.4'  //版本号
+//    publishVersion = '1.0.0'  //版本号
 //    desc = 'zbar'  //项目描述。可空。
 //    website = 'https://github.com/ycbiao/ZZScan/tree/master/zbar'  //项目地址，一般填github地址。可空。
 //}
@@ -14,54 +14,49 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
-        consumerProguardFiles 'consumer-proguard-rules.pro'
 
         ndk {
             //设置支持的SO库架构
+//            abiFilters /*'armeabi' , 'x86', , 'x86_64'*/'armeabi-v7a', 'arm64-v8a','armeabi' , 'x86' , 'x86_64'
             abiFilters /*'armeabi' , 'x86', , 'x86_64'*/'armeabi-v7a', 'arm64-v8a'
         }
     }
-
-
-    def isBuildSo = false
-    if (isBuildSo) { // 构建生成 so 文件
-        sourceSets {
-            main {
-                jniLibs.srcDirs = []
-            }
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/jni']
         }
-        externalNativeBuild {
-            ndkBuild {
-                path 'src/main/jni/Android.mk'
-            }
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
         }
-    } else { // 生成 so 文件后，打包时直接使用生成的 so
-        sourceSets {
-            main {
-                jni.srcDirs = []
-            }
-        }
-        delete(file('.externalNativeBuild'), file('src/main/libs'), file('src/main/obj'))
     }
 
+    packagingOptions {
+        exclude 'META-INF/*'
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        exclude 'META-INF/INDEX.LIST' // will not include INDEX.LIST file
+    }
 
-}
-
-dependencies {
-//    if (hasProperty("publishAar")) {
-//        compile "cn.bingoogolapple:bga-qrcode-core:${VERSION_NAME}"
-//    } else {
-//        api project(':qrcode')
+//    def isBuildSo = false
+//    if (isBuildSo) { // 构建生成 so 文件
+//        sourceSets {
+//            main {
+//                jniLibs.srcDirs = []
+//            }
+//        }
+//        externalNativeBuild {
+//            ndkBuild {
+//                path 'src/main/jni/Android.mk'
+//            }
+//        }
+//    } else { // 生成 so 文件后，打包时直接使用生成的 so
+//        sourceSets {
+//            main {
+//                jni.srcDirs = []
+//            }
+//        }
+//        delete(file('.externalNativeBuild'), file('src/main/libs'), file('src/main/obj'))
 //    }
 }
-
-// ./gradlew :zbar:clean :zbar:build :zbar:bintrayUpload -PpublishAar
-//if (hasProperty("publishAar")) {
-//    apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/jcenter-release.gradle'
-//}
-
-//tasks.whenTaskAdded {
-//    if (it.name == 'releaseAndroidJavadocs') {
-//        it.enabled = false
-//    }
-//}

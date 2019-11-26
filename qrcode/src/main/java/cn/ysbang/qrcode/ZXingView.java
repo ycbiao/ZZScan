@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.util.Map;
 
+//import cn.bingoogolapple.qrcode.zbar.ZBarDecode;
 import cn.bingoogolapple.qrcode.zbar.ZBarDecode;
 import cn.ysbang.zxing.QRCodeDecoder;
 

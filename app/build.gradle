@@ -11,7 +11,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    packagingOptions {
+        exclude 'META-INF/*'
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        exclude 'META-INF/INDEX.LIST' // will not include INDEX.LIST file
+    }
+
+    repositories {
+    flatDir {
+        dirs project(':qrcode').file('libs')
+    }
+    }
 }
+
+
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -21,6 +36,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'pub.devrel:easypermissions:1.0.1'
-    implementation project(path: ':qrcode')
-//    implementation 'com.ysb:zzscan:1.0.3'
+    implementation  project(path: ':qrcode')
+//    implementation 'com.ysb:zzscan:1.0.0'
 }

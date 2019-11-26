@@ -1,38 +1,42 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.novoda.bintray-release'
-//publish{
-//    userOrg = 'binner16'  //bintray注册的用户名（不是邮箱）
-//    groupId = 'com.ysb'
-//    artifactId = 'zzscan'  //项目名称
-//    publishVersion = '1.0.2'  //版本号
-//    desc = ''  //项目描述。可空。
-//    website = 'https://github.com/ycbiao/ZZScan'  //项目地址，一般填github地址。可空。
-//}
+apply plugin: 'com.novoda.bintray-release'
+publish{
+    userOrg = 'binner16'  //bintray注册的用户名（不是邮箱）
+    groupId = 'com.ysb'
+    artifactId = 'zzscan'  //项目名称
+    publishVersion = '1.0.1'  //版本号
+    desc = '1.0.1'  //项目描述。可空。
+    website = 'https://github.com/ycbiao/ZZScan'  //项目地址，一般填github地址。可空。
+}
 
 android {
     compileSdkVersion 29
-    buildToolsVersion '29.0.1'
+//    buildToolsVersion '29.0.1'
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 29
     }
-    lintOptions {
-        abortOnError false
+
+    packagingOptions {
+        exclude 'META-INF/*'
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        exclude 'META-INF/INDEX.LIST' // will not include INDEX.LIST file
     }
 }
 
-dependencies {
-    if(hasProperty("publishAar")) {
-        implementation "com.ysb:zxing:1.0.0"
-    } else {
-        api project(':zbar')
-    }
 
-//    if(hasProperty("publishAar")) {
-//        implementation "com.ysb:zxing:1.0.0"
-//    } else {
-//        api project(':zbar')
+//repositories {
+//    flatDir {
+//        dirs 'libs'
 //    }
-    implementation "com.ysb:zxing:1.0.2"
+//}
+
+
+dependencies {
+    implementation 'com.ysb:zxing:1.0.2'
+//    implementation project(path: ':zbar')
+    implementation 'com.ysb:zbar:0.0.4'
+//    implementation(name: 'zbar-release', ext: 'aar')
 }
