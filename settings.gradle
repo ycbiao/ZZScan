@@ -1,2 +1,2 @@
-include ':app', ':zxing', ':zbar', ':qrcode'
+include ':app', ':qrcode'
 rootProject.name='ZZScan'
