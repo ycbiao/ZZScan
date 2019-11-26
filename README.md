@@ -1,4 +1,4 @@
-# ZZScan
+# zxing扫码识别二维码,本地相册图片zxing结合zbar识别二维码
 
 扫码框识别使用zxing
 
