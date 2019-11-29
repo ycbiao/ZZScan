@@ -1,10 +1,18 @@
-### zxing扫码识别二维码,本地相册图片zxing结合zbar识别二维码
+### 相机使用zxing识别二维码,本地相册图片使用zxing结合zbar识别二维码
+
+[参考项目BGAQRCode](https://github.com/bingoogolapple/BGAQRCode-Android)
 
 扫码框识别使用zxing
 
 本地相册选取图片识别二维码首先使用zxing，失败则使用zbar识别，提高对不同二维码的识别率
 
-gradle使用方法
+## 1.0.2版本
+
+仅支持一维码en13、code128、二维码qr码识别
+
+zbar仅支持'armeabi-v7a', 'arm64-v8a'手机系统，不支持ipad
+
+### gradle使用方法
 ```java
 implementation 'com.ysb:zzscan:1.0.2'
 ```
